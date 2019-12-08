@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        th {border: 1px solid grey;}
+        td {border: 1px solid grey;}
+        table {width: 20%;}
+    </style>
+</head>
+<body>
+    <h1>Create</h1>
+    <form method="post">
+        {{ register }}
+        {% csrf_token %}
+        <p><input name="_register" type="submit" value="Создать"></p>
+        <br>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+            <table style="float: left;">
+                <th>Domain</th>
+                <th>Username</th>
+                <th>Password</th>
+                {% for i in post_d %}
+                {% if upd == 0 %}
+                <tr>
+                    <td>{{i.domain}}</td>
+                    <td>{{i.users}} <button name="{{i.id}}" style="float: right;">[...]</button></td>
+                    <td>********** <button name="{{i.id}}" style="float: right;">[...]</button></td>
+                </tr>
+                {% endif %}
+                {% if upd == 1 %}
+                    <td>{{i.domain}}</td>
+                    <td>{{upd_f.upd_user}} <button name="upd_but" value="{{i.id}}" style="float: right;">ОК</button></td>
+                    <td>{{upd_f.upd_pass}} <button name="upd_but" value="{{i.id}}" style="float: right;">ОК</button></td>
+                {% endif %}
+                {% endfor %}
+            </table>
+            <table style="width: 18%;">
+                <th>Token</th>
+                {% for j in token_all %}
+                <tr>
+                    <td>{{j}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+    </form>
+</body>
+</html>
